@@ -1,34 +1,103 @@
-# CWARM
+# CoWAR：A General Complementary Web API Recommendation Framework based on Learning Model
 
-文件链接：https://pan.baidu.com/s/1tHepiVDCCRLILvzYcm084Q?pwd=7cqq
-
-### 一、data文件夹下的文件说明
-
-1. 文件说明
-   - apiData.xlsx：爬取的所有api数据，且为已处理过可直接使用的数据集
-   - mashups.csv：爬取的所有mashup数据，且为已进行过预处理的数据集，所以样本数只有2230
-   - combination.csv：在mashups.csv基础上得出的data labeling数据集
-   - dict_api.pkl：基于apiData.xlsx以及BERT模型得出的数据，但是只是选取了在mashups.csv中使用过的数据。
-   - dict_combination.pkl：基于combination.csv所得数据集
-2. 注意事项
-   - dict_api.pkl和dict_combination.pkl这些文件的键值对是经过处理的，也就是说将原本的名称由编号进行替代。所以在dict_combination中的键对应的是每个data labeling的编号，值对应的是其所包含api的编号，其中最后一个是推荐api编号。
-   - dict_api.pkl中的键对应的api的编号，值对应的是基于BERT得到的768维的特征向量。
-
-### 二、py文件说明
-
-1. 文件说明
-
-   - baselines.py：实验中的基线方法运行文件
-   - bert2vec.py：BERT模型运行文件
-   - CWARW.py：CWARW推荐模型运行文件
-   - SANFM.py：SANFM学习模型文件
-
-2. 注意事项
-
-   运行环境为：python3.x（实验环境为3.10，一般情况下python3.x应该都是可以的）
+==Note==: Because **api_representation_dict.pkl** is too large and necessary, click [here](https://pan.baidu.com/s/1ylqvs-xeQynHvq_4njE_7Q?pwd=cqq7) for the full code.
 
 
 
-### Contact
+## Introduction
 
-Email: [1302466947@qq.com](mailto:1302466947@qq.com) (陈琪琪)
+CoWAR is designed to recommend complementary Web APIs tailored for Mashup creation, based on the user’s selected Web APIs.
+
+
+
+## Environment Requirement
+
+The experiment was run in the python 3.10.0 environment, and the required packages are as follows：
+
+- wheel == 0.37.1
+- transformers == 4.31.0
+- torch == 2.0.1
+- numpy == 1.24.3
+- nlp == 0.4.0
+- pandas == 2.0.3
+- scikit-learn == 1.2.2
+- matplotlib == 3.7.1
+- scipy == 1.11.1
+- tokenizers == 0.13.3
+- seaborn == 0.12.2
+
+
+
+## Example to run CoWAR
+
+1. Run  **convert_to_input.py** first to get the input data
+2. Then run **master_method.py**
+
+
+
+## File Introduction
+
+- data
+
+  - api_representation_dict.pkl
+
+    > The API representation used in the paper can be generated and replaced in api_representation.py, but this file is recommended
+
+  - apisData.xlsx
+
+    > Crawled API dataset
+
+  - mashups.xlsx
+
+    > Crawled Mashup dataset
+
+- data_preprocessing
+
+  - preprocessing.py
+
+    > A file that preprocesses the original dataset to filter out data that does not meet the requirements
+
+- deepctr
+
+  > Code for placing BasicFM, DeepFM, AFM, NAFM models
+
+- drawing
+
+  - long_tail_picture.py
+
+    > A file that draws a long-tail graph based on the original dataset
+
+- experiments
+
+  - master_method.py
+
+    > This file is used to perform the experiment
+
+  - sanfm.py
+
+    > Code for placing SANFM model
+
+- sample_generation
+
+  - api_representation.py
+
+    > Files that save API representations
+
+  - bert2vec.py
+
+    > A file that generates representations of the APIs based on BERT model
+
+  - convert_to_input.py
+
+    > labeled dataset and the representation of APIs are transformed into input data for the learning model and saved
+
+  - data_labeling.py
+
+    > In this file, a labeled dataset is generated according to the proposed data labeling algorithm and based on Mashup-API interactions derived from historical Mashups and Web APIs
+
+
+
+## Contact
+
+Email：1302466947@qq.com / qiqichen0702@gmail.com (Qiqi Chen)
+
